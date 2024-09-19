@@ -185,6 +185,11 @@ namespace Valibute.Utils
                 ItemsValidation(entity, (VItems)vValidProperty, prop, ref errors);
             }
         }
+        /// <summary>
+        /// Validate an entity 
+        /// </summary>
+        /// <param name="entity">Entity to validate</param>
+        /// <typeparam name="T">Entity class to validate</typeparam>
         public static ValidationResponse Validate<T>(T entity) where T : class 
         {
             if (entity == null)
@@ -207,7 +212,11 @@ namespace Valibute.Utils
             }
             return new CorrectValidationResponse();
         }
-
+        /// <summary>
+        /// Validate an entity 
+        /// </summary>
+        /// <param name="entity">Entity to validate</param>
+        /// <param name="entityType">Entity class to validate</param>
         public static ValidationResponse Validate(object entity, Type entityType)
         {
             if (entity == null)

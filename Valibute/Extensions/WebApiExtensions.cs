@@ -13,6 +13,9 @@ namespace Valibute.Extensions
 {
     public static class WebApiExtensions
     {
+        /// <summary>
+        /// Use valibute middleware in a minimal web api app
+        /// </summary>
         public static IApplicationBuilder UseValibute(this IApplicationBuilder app)
         {
             return app.Use(async (HttpContext context, RequestDelegate next) =>
@@ -74,6 +77,10 @@ namespace Valibute.Extensions
             });
         }
 
+        /// <summary>
+        /// Use valibute middleware in this endpoint, please refer to the entity class in T
+        /// </summary>
+        /// <typeparam name="T">Entity class to validate</typeparam>
         public static RouteHandlerBuilder WithValidation<T>(this RouteHandlerBuilder builder)
             where T : class
         {
@@ -86,7 +93,11 @@ namespace Valibute.Extensions
             builder.Produces(422);
             return builder;
         }
-
+        /// <summary>
+        /// Use valibute middleware in this endpoint, please refer to the entity class in T
+        /// </summary>
+        /// <param name="errorMessage">General error message in error response</param>
+        /// <typeparam name="T">Entity class to validate</typeparam>
         public static RouteHandlerBuilder WithValidation<T>(this RouteHandlerBuilder builder, string errorMessage)
     where T : class
         {

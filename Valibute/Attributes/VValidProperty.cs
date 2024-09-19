@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Valibute.Attributes
 {
-    public class VValidProperty : Attribute
+    internal class VValidProperty : Attribute
     {
         public string Name { get; set; } = string.Empty;
         public string ErrorMessage { get; set; } = string.Empty;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Valibute.Attributes.WebApi
+﻿namespace Valibute.Attributes.WebApi
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class VEndpoint : Attribute

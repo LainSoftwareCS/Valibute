@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Valibute.Attributes
+﻿namespace Valibute.Attributes
 {    /// <summary>
      /// Create an not empty validation for a property
      /// </summary>

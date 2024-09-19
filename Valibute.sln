@@ -5,10 +5,6 @@ VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valibute", "Valibute\Valibute.csproj", "{42ECDDD5-69CF-4136-A145-5C39DEFD9066}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Valibute.Test", "Valibute.Test\Valibute.Test.csproj", "{EDC2F228-E765-4B97-AED2-37D9CB61D1A2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiddlewareExample", "..\..\source\repos\MiddlewareExample\MiddlewareExample\MiddlewareExample.csproj", "{F14F7187-3C01-4B65-8074-5F5B853C95AF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{42ECDDD5-69CF-4136-A145-5C39DEFD9066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42ECDDD5-69CF-4136-A145-5C39DEFD9066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42ECDDD5-69CF-4136-A145-5C39DEFD9066}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDC2F228-E765-4B97-AED2-37D9CB61D1A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDC2F228-E765-4B97-AED2-37D9CB61D1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDC2F228-E765-4B97-AED2-37D9CB61D1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDC2F228-E765-4B97-AED2-37D9CB61D1A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F14F7187-3C01-4B65-8074-5F5B853C95AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F14F7187-3C01-4B65-8074-5F5B853C95AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F14F7187-3C01-4B65-8074-5F5B853C95AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F14F7187-3C01-4B65-8074-5F5B853C95AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

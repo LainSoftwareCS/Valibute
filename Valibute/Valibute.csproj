@@ -12,5 +12,16 @@
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-
+	<PropertyGroup>
+		<PackageId>Valibute</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>LainSoftware</Authors>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<RepositoryUrl>https://github.com/LainSoftwareCS/Valibute</RepositoryUrl>
+		<Description>Validation library that only uses props attributes!</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="docs\README.md" />
+	</ItemGroup>
 </Project>

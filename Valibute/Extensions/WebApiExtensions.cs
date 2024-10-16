@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Net;
+using System.Text;
 using Valibute.Attributes.WebApi;
 using Valibute.Models.Responses;
 using Valibute.Models.WebApi;
@@ -18,6 +19,8 @@ namespace Valibute.Extensions
         {
             return app.Use(async (HttpContext context, RequestDelegate next) =>
             {
+                context.Request.EnableBuffering();
+
                 var endpoint = context.GetEndpoint();
                 if (endpoint == null)
                 {
@@ -41,11 +44,16 @@ namespace Valibute.Extensions
 
 
                 string jsonBody = string.Empty;
-                using (var streamReader = new StreamReader(context.Request.Body))
+                context.Request.Body.Position = 0;
+                using (var reader = new StreamReader(
+                    context.Request.Body,
+                    encoding: Encoding.UTF8,
+                    detectEncodingFromByteOrderMarks: false,
+                    leaveOpen: true))
                 {
-                    jsonBody = await streamReader.ReadToEndAsync();
+                    jsonBody = await reader.ReadToEndAsync();
                 }
-
+                context.Request.Body.Position = 0;
 
                 var valibuteClass = JsonConvert.DeserializeObject(jsonBody, valibuteProperty.ValibuteType);
                 if (valibuteClass == null)
@@ -58,18 +66,14 @@ namespace Valibute.Extensions
 
                 if (!validationResponse.IsValid)
                 {
+                    context.Response.Clear();
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
-                    string result = JsonConvert.SerializeObject(
-                        new
-                        {
-                            message = string.IsNullOrEmpty(valibuteProperty.ErrorMessage) ? "Validation error" : valibuteProperty.ErrorMessage,
-                            errors = ((ErrorValidationResponse)validationResponse).Errors.Select(x => new { 
-                                propertyName = x.PropName,
-                                errorMessage = x.Error
-                            })
-                        });
-                    await context.Response.WriteAsync(result);
+                    var response = new ValidationErrorApiResponse(string.IsNullOrEmpty(valibuteProperty.ErrorMessage) ? "Validation error" : valibuteProperty.ErrorMessage, ((ErrorValidationResponse)validationResponse).Errors);
+                    //string result = JsonConvert.SerializeObject(response);
+                    await context.Response.WriteAsJsonAsync(response);
+
+                    //await context.Response.WriteAsync(result);
                 }
                 await next(context);
             });
@@ -88,7 +92,7 @@ namespace Valibute.Extensions
                 endpointBuilder.Metadata.Add(new ValibuteMiddlewareProperty(true, type));
             });
 
-            builder.Produces(422);
+            builder.Produces<ValidationErrorApiResponse>(422);
             return builder;
         }
         /// <summary>
@@ -105,7 +109,7 @@ namespace Valibute.Extensions
                 endpointBuilder.Metadata.Add(new ValibuteMiddlewareProperty(true, type, errorMessage));
             });
 
-            builder.Produces(422);
+            builder.Produces<ValidationErrorApiResponse>(422);
             return builder;
         }
     }

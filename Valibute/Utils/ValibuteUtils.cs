@@ -54,6 +54,18 @@ namespace Valibute.Utils
                 errors.Add(new ValidationError(emailAttribute));
             }
         }
+        private static void PhoneValidation<T>(T entity, VPhone phoneAttribute, PropertyInfo prop, ref List<ValidationError> errors)
+        {
+            var value = prop.GetValue(entity);
+            if (value == null)
+            {
+                return;
+            }
+            if (value.ToString()?.Length != 10)
+            {
+                errors.Add(new ValidationError(phoneAttribute));
+            }
+        }
         private static void ItemsValidation<T>(T entity, VItems itemsAttribute, PropertyInfo prop, ref List<ValidationError> errors)
         {
             var value = prop.GetValue(entity);
@@ -155,26 +167,27 @@ namespace Valibute.Utils
         }
         private static void ValidateProperty<T>(this VValidProperty vValidProperty, T entity, PropertyInfo prop,
             ref List<ValidationError> errors)
-        {   
-            if (vValidProperty is VRequired)
+        {
+            switch (vValidProperty)
             {
-                RequiredValidation(entity, vValidProperty, prop, ref errors);
-            }
-            else if (vValidProperty is VNotEmpty)
-            {
-                NotEmptyValidation(entity, (VNotEmpty)vValidProperty, prop, ref errors);
-            }
-            else if (vValidProperty is VNumber)
-            {
-                NumberValidation(entity, (VNumber)vValidProperty, prop, ref errors);
-            }
-            else if (vValidProperty is VEmail)
-            {
-                EmailValidation(entity, (VEmail)vValidProperty, prop, ref errors);
-            }
-            else if (vValidProperty is VItems)
-            {
-                ItemsValidation(entity, (VItems)vValidProperty, prop, ref errors);
+                case VRequired:
+                    RequiredValidation(entity, vValidProperty, prop, ref errors);
+                    break;
+                case VNotEmpty:
+                    NotEmptyValidation(entity, (VNotEmpty)vValidProperty, prop, ref errors);
+                    break;
+                case VNumber:
+                    NumberValidation(entity, (VNumber)vValidProperty, prop, ref errors);
+                    break;
+                case VEmail:
+                    EmailValidation(entity, (VEmail)vValidProperty, prop, ref errors);
+                    break;
+                case VItems:
+                    ItemsValidation(entity, (VItems)vValidProperty, prop, ref errors);
+                    break;
+                case VPhone:
+                    PhoneValidation(entity, (VPhone)vValidProperty, prop, ref errors);
+                    break;
             }
         }
         /// <summary>
